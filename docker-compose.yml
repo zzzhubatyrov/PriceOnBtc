@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  postgres:
+    image: "postgres:latest"
+    container_name: pg15
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=test
+    ports:
+      - "5432:5432"
+    networks:
+      - default
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    networks:
+      - default
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - default
+networks:
+  default:
+    external: true
+    name: existing-network
