@@ -13,7 +13,7 @@ services:
     networks:
       - default
   backend:
-    container_name: backend
+    container_name: nodeBack
     build:
       context: ./backend
       dockerfile: Dockerfile
