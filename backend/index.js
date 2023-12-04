@@ -6,7 +6,6 @@ const sequelize = require('./src/db.js');
 const axios = require('axios')
 const Price = require('./src/models/price.js')
 const dayjs = require('dayjs');
-const jsonPrice = require('./updatedPrice.json')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -115,6 +114,7 @@ async function fetchData() {
     }
 }
 
+const jsonPrice = require('./updatedPrice.json')
 
 async function insertData() {
     try {
@@ -126,7 +126,7 @@ async function insertData() {
 
 // setInterval(fetchData, 60000)
 insertData()
-    
+
 async function startApp() {
     try {
         await sequelize.sync({ force: false })
